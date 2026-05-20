@@ -1,30 +1,33 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, Play, Sparkles, Stars } from 'lucide-react';
 import AnimatedBackdrop from '@/components/effects/AnimatedBackdrop';
 import MagneticButton from '@/components/ui/MagneticButton';
 import Reveal from '@/components/ui/Reveal';
+import { contact } from '@/lib/data';
 
 export default function Hero() {
+  const router = useRouter();
   return (
-    <section className="relative isolate overflow-hidden pt-32 pb-24 md:pt-44 md:pb-32">
+    <section className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32">
       <AnimatedBackdrop />
 
       <div className="container-x relative z-10">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-royal/25 bg-white/60 px-4 py-1.5 text-xs font-medium tracking-wide text-navy backdrop-blur-xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-royal/25 bg-white/60 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wide text-navy backdrop-blur-xl">
               <Sparkles className="h-3.5 w-3.5 text-gold" />
               Admissions open —{' '}
               <span className="gold-text font-semibold">
-                Book a 30-min counselling call
+                Free 30-min counselling
               </span>
             </span>
           </Reveal>
 
           <Reveal delay={0.05}>
-            <h1 className="heading-display mt-6 text-5xl md:text-7xl text-balance text-navy">
+            <h1 className="heading-display mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-balance text-navy">
               Shape Your <span className="gold-text">Tomorrow</span>.
               <br className="hidden md:block" /> Admissions to top{' '}
               <span className="royal-text">universities</span>.
@@ -32,7 +35,7 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <p className="mt-6 max-w-xl text-balance text-base md:text-lg text-muted">
+            <p className="mt-5 sm:mt-6 max-w-xl text-balance text-sm sm:text-base md:text-lg text-muted">
               Receive expert support for admissions to top universities in
               India and overseas. Online education, distance learning,
               vocational courses, and regular admissions — guided end-to-end.
@@ -40,12 +43,22 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-9 flex flex-col items-center gap-4 sm:flex-row">
-              <MagneticButton variant="primary" className="!px-7 !py-3.5">
-                Quick Call
+            <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+              <MagneticButton
+                variant="primary"
+                className="!px-7 !py-3.5"
+                onClick={() => {
+                  window.location.href = contact.phoneHref;
+                }}
+              >
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Quick Call
               </MagneticButton>
-              <MagneticButton variant="ghost" className="!px-7 !py-3.5">
+              <MagneticButton
+                variant="ghost"
+                className="!px-7 !py-3.5"
+                onClick={() => router.push('/contact')}
+              >
                 <Play className="h-4 w-4 fill-navy" />
                 Video Counselling
               </MagneticButton>

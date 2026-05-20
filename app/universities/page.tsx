@@ -144,9 +144,12 @@ export default function UniversitiesPage() {
 
 function UniversityCard({ u }: { u: (typeof universities)[number] }) {
   return (
-    <div className="group relative h-full overflow-hidden rounded-3xl border border-royal/15 bg-white/70 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg">
+    <Link
+      href={`/contact?course=${encodeURIComponent(u.name)}`}
+      className="group relative block h-full overflow-hidden rounded-3xl border border-royal/15 bg-white/70 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg"
+    >
       <div
-        className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-25 blur-3xl transition-opacity group-hover:opacity-50"
+        className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-25 blur-3xl transition-opacity group-hover:opacity-50"
         style={{ background: u.accent }}
       />
       <div className="flex items-start gap-4">
@@ -169,6 +172,6 @@ function UniversityCard({ u }: { u: (typeof universities)[number] }) {
         </span>
         <span className="text-xs text-muted">Verified partner</span>
       </div>
-    </div>
+    </Link>
   );
 }

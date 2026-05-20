@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Phone,
 } from 'lucide-react';
+import { Suspense } from 'react';
 import PageHeader from '@/components/ui/PageHeader';
 import GlowCard from '@/components/ui/GlowCard';
 import Reveal from '@/components/ui/Reveal';
@@ -110,20 +111,19 @@ export default function ContactPage() {
         <div className="container-x">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
             <Reveal className="lg:col-span-3">
-              <GlowCard className="p-7 md:p-10">
-                <span className="text-xs uppercase tracking-[0.4em] text-royal">
-                  Counselling request
-                </span>
-                <h2 className="heading-display mt-3 text-2xl md:text-3xl text-navy">
-                  Tell us about you
+              <GlowCard className="p-6 sm:p-8 md:p-10">
+                <h2 className="heading-display text-center text-2xl sm:text-3xl text-navy">
+                  Get Free Counselling
                 </h2>
-                <p className="mt-2 text-sm text-muted">
+                <p className="mt-2 text-center text-sm text-muted">
                   Share a few details and our admissions team will reach out
-                  with a personalised plan.
+                  within an hour.
                 </p>
 
                 <div className="mt-7">
-                  <ContactForm />
+                  <Suspense fallback={<FormSkeleton />}>
+                    <ContactForm />
+                  </Suspense>
                 </div>
               </GlowCard>
             </Reveal>
@@ -199,5 +199,20 @@ export default function ContactPage() {
         </div>
       </section>
     </>
+  );
+}
+
+function FormSkeleton() {
+  return (
+    <div className="flex flex-col gap-3.5" aria-hidden>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div
+          key={i}
+          className="h-12 w-full animate-pulse rounded-2xl border border-royal/15 bg-white/70"
+        />
+      ))}
+      <div className="h-28 w-full animate-pulse rounded-2xl border border-royal/15 bg-white/70" />
+      <div className="h-12 w-full animate-pulse rounded-2xl bg-royal/30" />
+    </div>
   );
 }

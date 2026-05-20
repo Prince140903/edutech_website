@@ -194,21 +194,22 @@ body {
 /* Cursor glow */
 .cursor-glow {
   position: fixed;
-  width: 480px;
-  height: 480px;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(59, 130, 246, 0.18) 0%,
-    rgba(59, 130, 246, 0.08) 35%,
-    transparent 70%
+    rgba(59, 130, 246, 0.16) 0%,
+    rgba(59, 130, 246, 0.06) 40%,
+    transparent 72%
   );
   pointer-events: none;
   z-index: 1;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.4s ease;
-  mix-blend-mode: multiply;
-  filter: blur(20px);
+  transition: opacity 0.3s ease;
+  will-change: transform;
+  contain: layout paint style;
 }
 
 /* Grid background */
@@ -279,6 +280,45 @@ body {
 @media (hover: none) {
   .cursor-glow {
     display: none;
+  }
+}
+
+/* CSS-driven particles (cheaper than per-frame JS) */
+.particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.55);
+  opacity: 0.25;
+  will-change: transform, opacity;
+  animation: particleFloat var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-38px);
+    opacity: 0.85;
+  }
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .particle {
+    animation: none !important;
   }
 }
 

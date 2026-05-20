@@ -48,7 +48,7 @@ export default function OnlinePage() {
         crumbs={[{ label: 'Online Education' }]}
       >
         <Link
-          href="/contact"
+          href="/contact?course=Online%20Education"
           className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
         >
           Talk to a counsellor
@@ -122,7 +122,7 @@ export default function OnlinePage() {
                 <ChevronRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/contact"
+                href="/contact?course=Online%20Education"
                 className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
               >
                 Book free counselling

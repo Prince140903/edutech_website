@@ -70,7 +70,7 @@ export default function VocationalPage() {
         crumbs={[{ label: 'Vocational Courses' }]}
       >
         <Link
-          href="/contact"
+          href="/contact?course=Vocational%20Courses"
           className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
         >
           Start your enrolment

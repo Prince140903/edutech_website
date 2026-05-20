@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, Building2 } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 import { universities } from '@/lib/data';
@@ -44,13 +43,12 @@ export default function UniversitiesPreview() {
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {preview.map((u, i) => (
             <Reveal key={u.name} delay={i * 0.06}>
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative h-full overflow-hidden rounded-3xl border border-royal/15 bg-white/70 p-6 backdrop-blur-xl transition-shadow duration-500 hover:shadow-glow-lg"
+              <Link
+                href={`/contact?course=${encodeURIComponent(u.name)}`}
+                className="group relative block h-full overflow-hidden rounded-3xl border border-royal/15 bg-white/70 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg"
               >
                 <div
-                  className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-25 blur-3xl transition-opacity group-hover:opacity-50"
+                  className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-25 blur-3xl transition-opacity group-hover:opacity-50"
                   style={{ background: u.accent }}
                 />
                 <div className="flex items-start gap-4">
@@ -75,7 +73,7 @@ export default function UniversitiesPreview() {
                   </span>
                   <span className="text-xs text-muted">Verified partner</span>
                 </div>
-              </motion.div>
+              </Link>
             </Reveal>
           ))}
         </div>

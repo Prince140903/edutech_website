@@ -2,22 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { CheckCircle2, Send } from 'lucide-react';
-import { useState } from 'react';
-
-const streams = [
-  'Engineering',
-  'Medical',
-  'Management',
-  'Law',
-  'Education',
-  'Pharmacy',
-  'Online Education',
-  'Distance Education',
-  'Vocational Courses',
-];
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function ContactForm() {
+  const params = useSearchParams();
+  const courseFromUrl = params?.get('course') ?? '';
+  const [course, setCourse] = useState(courseFromUrl);
   const [sent, setSent] = useState(false);
+
+  // Keep the field in sync if the user clicks another card while staying on /contact
+  useEffect(() => {
+    if (courseFromUrl) setCourse(courseFromUrl);
+  }, [courseFromUrl]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,8 +26,8 @@ export default function ContactForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-2xl border border-royal/20 bg-pearl/60 p-8 text-center backdrop-blur-xl"
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-8 text-center backdrop-blur-xl"
       >
         <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-glow">
           <CheckCircle2 className="h-7 w-7" />
@@ -46,97 +43,117 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <Field label="Full name" name="name" placeholder="Your name" required />
+    <form onSubmit={onSubmit} className="flex flex-col gap-3.5">
       <Field
-        label="Phone"
+        name="name"
+        label="Full Name"
+        required
+        autoComplete="name"
+        placeholder="Full Name*"
+      />
+      <Field
         name="phone"
-        type="tel"
-        placeholder="+91 90000 00000"
+        label="Phone Number"
         required
+        type="tel"
+        autoComplete="tel"
+        inputMode="tel"
+        placeholder="Phone Number*"
       />
       <Field
-        label="Email"
         name="email"
-        type="email"
-        placeholder="you@example.com"
+        label="Email"
         required
-        className="sm:col-span-2"
+        type="email"
+        autoComplete="email"
+        placeholder="Email*"
+      />
+      <Field
+        name="state"
+        label="State"
+        required
+        autoComplete="address-level1"
+        placeholder="State*"
+      />
+      <Field
+        name="course"
+        label="Course Looking For"
+        value={course}
+        onChange={(e) => setCourse(e.target.value)}
+        placeholder="Course Looking For"
       />
 
-      <div className="sm:col-span-2">
-        <label className="text-xs font-semibold uppercase tracking-widest text-muted">
-          Interested in
-        </label>
-        <select
-          name="stream"
-          required
-          className="mt-1.5 w-full rounded-xl border border-royal/15 bg-white/80 px-4 py-3 text-sm text-navy backdrop-blur-xl focus:border-royal/50 focus:outline-none focus:ring-2 focus:ring-royal/20"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Choose a program type
-          </option>
-          {streams.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="sm:col-span-2">
-        <label className="text-xs font-semibold uppercase tracking-widest text-muted">
-          Message
+      <div className="flex flex-col gap-1.5">
+        <label className="sr-only" htmlFor="message">
+          Your Message
         </label>
         <textarea
+          id="message"
           name="message"
           rows={4}
-          placeholder="Tell us about your goals…"
-          className="mt-1.5 w-full resize-none rounded-xl border border-royal/15 bg-white/80 px-4 py-3 text-sm text-navy backdrop-blur-xl placeholder:text-muted/60 focus:border-royal/50 focus:outline-none focus:ring-2 focus:ring-royal/20"
+          placeholder="Your Message"
+          className="w-full resize-none rounded-2xl border border-royal/15 bg-white/80 px-4 py-3 text-sm text-navy backdrop-blur-xl placeholder:text-muted/70 focus:border-royal/50 focus:outline-none focus:ring-2 focus:ring-royal/20"
         />
       </div>
 
-      <div className="sm:col-span-2">
-        <motion.button
-          type="submit"
-          whileTap={{ scale: 0.98 }}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-all hover:shadow-glow-lg sm:w-auto"
-        >
-          Send request
-          <Send className="h-4 w-4" />
-        </motion.button>
-      </div>
+      <motion.button
+        type="submit"
+        whileTap={{ scale: 0.98 }}
+        whileHover={{ y: -2 }}
+        className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-royal-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg sm:text-base"
+      >
+        Submit Details
+        <Send className="h-4 w-4" />
+      </motion.button>
+
+      <p className="mt-2 text-center text-[11px] leading-relaxed text-muted">
+        Note: By selecting the 'Submit' button, you are expressly requesting a
+        call from Glide Education & Consultant Pvt Ltd and/or its authorized
+        representatives at the contact number you have provided.
+      </p>
     </form>
   );
 }
 
-function Field({
-  label,
-  name,
-  type = 'text',
-  placeholder,
-  required,
-  className,
-}: {
-  label: string;
+type FieldProps = {
   name: string;
+  label: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
-  className?: string;
-}) {
+  autoComplete?: string;
+  inputMode?: 'text' | 'tel' | 'email' | 'numeric' | 'search' | 'url';
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+function Field({
+  name,
+  label,
+  type = 'text',
+  placeholder,
+  required,
+  autoComplete,
+  inputMode,
+  value,
+  onChange,
+}: FieldProps) {
   return (
-    <div className={className}>
-      <label className="text-xs font-semibold uppercase tracking-widest text-muted">
+    <div className="flex flex-col gap-1.5">
+      <label className="sr-only" htmlFor={name}>
         {label}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
-        placeholder={placeholder}
+        placeholder={placeholder ?? label}
         required={required}
-        className="mt-1.5 w-full rounded-xl border border-royal/15 bg-white/80 px-4 py-3 text-sm text-navy backdrop-blur-xl placeholder:text-muted/60 focus:border-royal/50 focus:outline-none focus:ring-2 focus:ring-royal/20"
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        value={value}
+        onChange={onChange}
+        className="w-full rounded-2xl border border-royal/15 bg-white/80 px-4 py-3.5 text-sm text-navy backdrop-blur-xl placeholder:text-muted/70 focus:border-royal/50 focus:outline-none focus:ring-2 focus:ring-royal/20"
       />
     </div>
   );

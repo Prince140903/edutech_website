@@ -56,19 +56,25 @@ export default function CTA() {
                 closing soon
               </span>
 
-              <h2 className="heading-display mt-6 text-4xl md:text-6xl text-balance">
+              <h2 className="heading-display mt-6 text-3xl sm:text-4xl md:text-6xl text-balance">
                 Shape your tomorrow,{' '}
                 <span className="gold-text">starting today</span>.
               </h2>
 
-              <p className="mt-5 text-balance text-white/70 md:text-lg">
+              <p className="mt-5 text-balance text-sm sm:text-base text-white/70 md:text-lg">
                 Join 10,000+ students who secured admissions to top
                 universities in India and overseas with expert guidance.
               </p>
 
               <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <MagneticButton variant="gold" className="!px-7 !py-3.5">
-                  Video Counselling
+                <MagneticButton
+                  variant="gold"
+                  className="!px-7 !py-3.5"
+                  onClick={() => {
+                    window.location.href = '/contact';
+                  }}
+                >
+                  Get Free Counselling
                   <ArrowRight className="h-4 w-4" />
                 </MagneticButton>
                 <a

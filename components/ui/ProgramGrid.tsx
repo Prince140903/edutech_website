@@ -1,7 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
+  ArrowUpRight,
   Award,
   Briefcase,
   Cpu,
@@ -48,33 +50,37 @@ export default function ProgramGrid({ programs }: { programs: Program[] }) {
               delay: Math.min(i * 0.02, 0.4),
               ease: [0.16, 1, 0.3, 1],
             }}
-            whileHover={{ y: -3 }}
-            className="group relative overflow-hidden rounded-2xl border border-royal/12 bg-white/80 p-4 backdrop-blur-xl transition-shadow duration-500 hover:shadow-glow"
           >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-royal/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+            <Link
+              href={`/contact?course=${encodeURIComponent(p.title)}`}
+              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-royal/12 bg-white/80 p-4 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-royal/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
 
-            <div className="flex items-start gap-3">
-              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-royal-gradient text-white shadow-glow">
-                <Icon className="h-4 w-4" />
-              </span>
-              <div className="min-w-0">
-                <p className="heading-display text-sm text-navy truncate">
-                  {p.title}
-                </p>
-                <p className="text-[10px] uppercase tracking-widest text-muted">
-                  {p.category}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-3 flex items-center justify-between border-t border-royal/10 pt-3">
-              <span className="text-[11px] text-muted">{p.duration}</span>
-              {p.fee && (
-                <span className="rounded-full bg-pearl px-2.5 py-1 text-[10px] font-semibold text-navy">
-                  {p.fee}
+              <div className="flex items-start gap-3">
+                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-royal-gradient text-white shadow-glow">
+                  <Icon className="h-4 w-4" />
                 </span>
-              )}
-            </div>
+                <div className="min-w-0 flex-1">
+                  <p className="heading-display text-sm text-navy line-clamp-1">
+                    {p.title}
+                  </p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted">
+                    {p.category}
+                  </p>
+                </div>
+                <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-royal" />
+              </div>
+
+              <div className="mt-3 flex items-center justify-between border-t border-royal/10 pt-3">
+                <span className="text-[11px] text-muted">{p.duration}</span>
+                {p.fee && (
+                  <span className="rounded-full bg-pearl px-2.5 py-1 text-[10px] font-semibold text-navy">
+                    {p.fee}
+                  </span>
+                )}
+              </div>
+            </Link>
           </motion.div>
         );
       })}

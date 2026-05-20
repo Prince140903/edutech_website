@@ -15,28 +15,48 @@ export default function GlowCard({
   children,
   className,
   float = false,
-  tiltStrength = 6,
+  tiltStrength = 5,
   ...rest
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const pending = useRef<{ x: number; y: number } | null>(null);
+
+  const flush = () => {
+    const el = ref.current;
+    const p = pending.current;
+    rafRef.current = null;
+    pending.current = null;
+    if (!el || !p) return;
+    el.style.setProperty('--mx', `${p.x}%`);
+    el.style.setProperty('--my', `${p.y}%`);
+    const rx = (p.y - 50) / 50;
+    const ry = (50 - p.x) / 50;
+    el.style.setProperty('--rx', `${rx * tiltStrength}deg`);
+    el.style.setProperty('--ry', `${ry * tiltStrength}deg`);
+  };
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width) * 100;
-    const y = ((e.clientY - r.top) / r.height) * 100;
-    el.style.setProperty('--mx', `${x}%`);
-    el.style.setProperty('--my', `${y}%`);
-    const rx = (y - 50) / 50;
-    const ry = (50 - x) / 50;
-    el.style.setProperty('--rx', `${rx * tiltStrength}deg`);
-    el.style.setProperty('--ry', `${ry * tiltStrength}deg`);
+    pending.current = {
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
+    };
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(flush);
+    }
   };
 
   const onLeave = () => {
     const el = ref.current;
     if (!el) return;
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    pending.current = null;
     el.style.setProperty('--rx', `0deg`);
     el.style.setProperty('--ry', `0deg`);
   };
@@ -54,6 +74,7 @@ export default function GlowCard({
       style={{
         transform:
           'perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))',
+        willChange: 'transform',
       }}
       {...rest}
     >

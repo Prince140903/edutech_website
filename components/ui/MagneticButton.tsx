@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { ComponentProps, ReactNode, useRef } from 'react';
 import { cn } from '@/lib/cn';
 
@@ -11,20 +11,20 @@ type Props = {
   strength?: number;
 } & Omit<ComponentProps<typeof motion.button>, 'children'>;
 
+const SPRING = { stiffness: 400, damping: 28, mass: 0.5 } as const;
+
 export default function MagneticButton({
   children,
   className,
   variant = 'primary',
-  strength = 0.35,
+  strength = 0.22,
   ...rest
 }: Props) {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.6 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.6 });
-  const rotX = useTransform(sy, [-30, 30], [6, -6]);
-  const rotY = useTransform(sx, [-30, 30], [-6, 6]);
+  const sx = useSpring(x, SPRING);
+  const sy = useSpring(y, SPRING);
 
   const onMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     const el = ref.current;
@@ -53,16 +53,13 @@ export default function MagneticButton({
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      style={{ x: sx, y: sy, rotateX: rotX, rotateY: rotY }}
+      style={{ x: sx, y: sy, willChange: 'transform' }}
       className={cn(base, className)}
       {...rest}
     >
-      <motion.span
-        style={{ x: useTransform(sx, (v) => v * 0.4), y: useTransform(sy, (v) => v * 0.4) }}
-        className="pointer-events-none inline-flex items-center gap-2"
-      >
+      <span className="pointer-events-none inline-flex items-center gap-2">
         {children}
-      </motion.span>
+      </span>
     </motion.button>
   );
 }

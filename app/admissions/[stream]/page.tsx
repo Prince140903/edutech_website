@@ -58,7 +58,7 @@ export default function StreamPage({
       >
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/contact"
+            href={`/contact?course=${encodeURIComponent(s.name)}`}
             className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
           >
             Talk to admissions
@@ -91,27 +91,34 @@ export default function StreamPage({
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {s.specializations.map((sp, i) => (
               <Reveal key={sp.title} delay={i * 0.06}>
-                <GlowCard className="h-full p-6" float={i === 1}>
-                  <div className="flex items-start justify-between">
-                    <span
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-2xl text-white shadow-glow"
-                      style={{
-                        background: `linear-gradient(135deg, ${s.accent}, #0B1F4D)`,
-                      }}
-                    >
-                      <GraduationCap className="h-5 w-5" />
-                    </span>
-                    <span className="rounded-full bg-pearl px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-royal">
-                      {sp.duration}
-                    </span>
-                  </div>
-                  <h3 className="heading-display mt-4 text-lg text-navy">
-                    {sp.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {sp.desc}
-                  </p>
-                </GlowCard>
+                <Link
+                  href={`/contact?course=${encodeURIComponent(
+                    `${s.name} — ${sp.title}`,
+                  )}`}
+                  className="block h-full"
+                >
+                  <GlowCard className="h-full p-6" float={i === 1}>
+                    <div className="flex items-start justify-between">
+                      <span
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-2xl text-white shadow-glow"
+                        style={{
+                          background: `linear-gradient(135deg, ${s.accent}, #0B1F4D)`,
+                        }}
+                      >
+                        <GraduationCap className="h-5 w-5" />
+                      </span>
+                      <span className="rounded-full bg-pearl px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-royal">
+                        {sp.duration}
+                      </span>
+                    </div>
+                    <h3 className="heading-display mt-4 text-lg text-navy">
+                      {sp.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {sp.desc}
+                    </p>
+                  </GlowCard>
+                </Link>
               </Reveal>
             ))}
           </div>
