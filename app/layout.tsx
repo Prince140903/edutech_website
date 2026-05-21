@@ -6,6 +6,8 @@ import LoadingScreen from '@/components/effects/LoadingScreen';
 import PageTransition from '@/components/effects/PageTransition';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
+import WhatsAppFAB from '@/components/ui/WhatsAppFAB';
+import { contact, seo } from '@/lib/data';
 
 const body = Inter({
   subsets: ['latin'],
@@ -21,27 +23,141 @@ const display = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'Glide Education — We Shape Your Future',
-  description:
-    'Expert guidance for admissions to top universities in India and overseas. Online, distance and vocational programs across Engineering, Medical, Management, Law, Education and Pharmacy.',
-  keywords: [
-    'Glide Education',
-    'admissions',
-    'online education',
-    'distance education',
-    'vocational courses',
-    'university admissions',
-    'B.Tech',
-    'MBBS',
-    'MBA',
-    'MCA',
-    'LLB',
-    'B.Pharm',
-  ],
+  metadataBase: new URL(seo.siteUrl),
+  title: {
+    default: seo.defaultTitle,
+    template: '%s | Glide Education',
+  },
+  description: seo.defaultDescription,
+  keywords: seo.defaultKeywords,
+  authors: [{ name: 'Glide Education' }],
+  creator: 'Glide Education',
+  publisher: 'Glide Education',
+  applicationName: seo.siteName,
+  category: 'Education',
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: seo.siteUrl,
+    siteName: seo.siteName,
+    title: seo.defaultTitle,
+    description: seo.defaultDescription,
+    images: [
+      {
+        url: '/logo.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'Glide Education — We Shape Your Future',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: seo.defaultTitle,
+    description: seo.defaultDescription,
+    images: ['/logo.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   icons: {
     icon: '/logo.jpg',
     apple: '/logo.jpg',
   },
+  verification: {
+    // Add Google / Bing verification codes here once available.
+    // google: '',
+    // other: { 'bing': '' },
+  },
+};
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['EducationalOrganization', 'LocalBusiness'],
+      '@id': `${seo.siteUrl}/#organization`,
+      name: 'Glide Education',
+      alternateName: 'Glide Education Consultants',
+      url: seo.siteUrl,
+      logo: `${seo.siteUrl}/logo.jpg`,
+      image: `${seo.siteUrl}/logo.jpg`,
+      description: seo.defaultDescription,
+      telephone: contact.phone,
+      email: contact.email,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress:
+          'C-202, Second Floor, Eastern Business District (EBD), Neptune Magnet Mall, LBS Road',
+        addressLocality: 'Mumbai',
+        addressRegion: 'Maharashtra',
+        postalCode: '400078',
+        addressCountry: 'IN',
+      },
+      areaServed: ['India', 'United Arab Emirates', 'United Kingdom'],
+      sameAs: [contact.whatsappHref],
+      knowsAbout: [
+        'Medical college admission consulting',
+        'Engineering college admission consulting',
+        'MBA admission consulting',
+        'Law college admission consulting',
+        'B.Ed admission consulting',
+        'Pharmacy admission consulting',
+        'Online education admission',
+        'Distance education admission',
+        'Vocational courses',
+      ],
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday',
+        ],
+        opens: '00:00',
+        closes: '23:59',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: contact.phone,
+        contactType: 'admissions',
+        availableLanguage: ['English', 'Hindi', 'Marathi'],
+        areaServed: 'IN',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${seo.siteUrl}/#website`,
+      url: seo.siteUrl,
+      name: seo.siteName,
+      publisher: { '@id': `${seo.siteUrl}/#organization` },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${seo.siteUrl}/admissions?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -60,6 +176,13 @@ export default function RootLayout({
           <main className="relative">{children}</main>
         </PageTransition>
         <Footer />
+        <WhatsAppFAB />
+
+        {/* Structured data for Google rich results */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
       </body>
     </html>
   );

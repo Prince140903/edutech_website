@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, BookOpen, ShieldCheck } from 'lucide-react';
 import PageHeader from '@/components/ui/PageHeader';
 import GlowCard from '@/components/ui/GlowCard';
@@ -7,9 +8,23 @@ import Reveal from '@/components/ui/Reveal';
 import { streams } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Regular Admissions — Glide Education',
+  title:
+    'Admission Consultant — Engineering, Medical, MBA, Law, B.Ed, Pharmacy',
   description:
-    'Expert guidance for admissions across Engineering, Medical, Management, Law, Education and Pharmacy at top universities in India and overseas.',
+    'Glide Education is a top admission consultant for direct college admissions across Engineering, Medical, MBA, Law, B.Ed and Pharmacy at AICTE, NMC, BCI, NCTE and PCI approved institutions in India and overseas.',
+  keywords: [
+    'college admission consultant',
+    'direct admission consultant',
+    'engineering college admission consultant',
+    'medical college admission consultant',
+    'MBA admission consultant',
+    'law admission consultant',
+    'B.Ed admission consultant',
+    'pharmacy admission consultant',
+    'admission consultant Mumbai',
+    'admission consultant Pune',
+  ],
+  alternates: { canonical: '/admissions' },
 };
 
 export default function AdmissionsPage() {
@@ -38,16 +53,25 @@ export default function AdmissionsPage() {
                     <div
                       className={`relative aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br ${s.gradient}`}
                     >
-                      <div
-                        className="absolute -bottom-10 -right-10 h-44 w-44 rounded-full opacity-40 blur-3xl"
-                        style={{ background: s.accent }}
+                      <Image
+                        src={s.image}
+                        alt={`${s.name} college admission consulting`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.25),transparent_60%)]" />
-                      <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white backdrop-blur-md">
+                      <div
+                        className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-70"
+                        style={{
+                          background: `linear-gradient(135deg, ${s.accent}40 0%, #0B1F4D80 100%)`,
+                        }}
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
+                      <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white backdrop-blur-md">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />
                         Admissions open
                       </div>
-                      <div className="absolute bottom-4 right-4 heading-display text-white/90 text-2xl">
+                      <div className="absolute bottom-4 right-4 heading-display text-white text-2xl drop-shadow">
                         {s.name}
                       </div>
                     </div>

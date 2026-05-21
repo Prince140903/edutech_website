@@ -20,6 +20,11 @@ export type Stream = {
   collegesPune: string[];
   gradient: string;
   accent: string;
+  image: string;
+  /** SEO-targeted phrasing for meta titles (e.g. "medical college admission consultant") */
+  seoTitle: string;
+  seoDescription: string;
+  keywords: string[];
 };
 
 export type University = {
@@ -135,6 +140,19 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#3B82F6] to-[#0B1F4D]',
     accent: '#3B82F6',
+    image: '/engineerng.jpg',
+    seoTitle: 'Engineering College Admission Consultant in Mumbai & Pune',
+    seoDescription:
+      'Top engineering college admission consultant for B.Tech, M.Tech and Diploma admissions across IIT Bombay, COEP, VJTI, MIT-WPU and 100+ AICTE-approved institutes. Expert JEE counselling and direct admissions guidance.',
+    keywords: [
+      'engineering admission consultant',
+      'B.Tech admission Mumbai',
+      'B.Tech admission Pune',
+      'engineering college admission consultant',
+      'direct B.Tech admission',
+      'JEE Main counselling',
+      'M.Tech admission consultant',
+    ],
   },
   {
     slug: 'medical',
@@ -180,6 +198,20 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#E7B94C] to-[#F3D27A]',
     accent: '#E7B94C',
+    image: '/medical.jpg',
+    seoTitle: 'Medical College Admission Consultant — MBBS, MD Admissions',
+    seoDescription:
+      'Trusted medical college admission consultant for MBBS, MD and allied health sciences in India and overseas. Guidance for NEET counselling, NMC-approved medical college admissions, direct MBBS admissions and seat allotment.',
+    keywords: [
+      'medical college admission consultant',
+      'MBBS admission consultant',
+      'MBBS admission India',
+      'MBBS admission abroad',
+      'NEET counselling',
+      'direct MBBS admission',
+      'MD admission consultant',
+      'NMC approved colleges',
+    ],
   },
   {
     slug: 'management',
@@ -227,6 +259,19 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#1e3a8a] to-[#3B82F6]',
     accent: '#3B82F6',
+    image: '/management.jpg',
+    seoTitle: 'MBA & Management College Admission Consultant — BBA, MBA, MBA-ACCA',
+    seoDescription:
+      'Leading management college admission consultant for BBA, MBA, MBA-ACCA and PGDBM at AICTE-approved schools. Specialised in CAT, MAT, XAT counselling and direct management admissions.',
+    keywords: [
+      'MBA admission consultant',
+      'BBA admission consultant',
+      'management college admission consultant',
+      'direct MBA admission',
+      'MBA-ACCA admission',
+      'CAT counselling',
+      'PGDBM admission',
+    ],
   },
   {
     slug: 'law',
@@ -277,6 +322,18 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#0B1F4D] to-[#1e3a8a]',
     accent: '#3B82F6',
+    image: '/law.jpg',
+    seoTitle: 'Law College Admission Consultant — BA LLB, LLB, LLM',
+    seoDescription:
+      'BCI-recognised law college admission consultant for BA LLB, LLB and LLM programs. Expert CLAT and LSAT counselling and direct admissions to top law schools in Mumbai and Pune.',
+    keywords: [
+      'law college admission consultant',
+      'BA LLB admission',
+      'LLB admission consultant',
+      'LLM admission consultant',
+      'CLAT counselling',
+      'direct law admission',
+    ],
   },
   {
     slug: 'education',
@@ -326,6 +383,18 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#F3D27A] to-[#E7B94C]',
     accent: '#E7B94C',
+    image: '/education.jpg',
+    seoTitle: 'B.Ed & Education College Admission Consultant — B.Ed, M.Ed, B.P.Ed',
+    seoDescription:
+      'NCTE-approved teacher education admission consultant for B.Ed, M.Ed, B.P.Ed and Pre-Primary Montessori programs. Guidance for state CETs and direct admissions.',
+    keywords: [
+      'B.Ed admission consultant',
+      'M.Ed admission consultant',
+      'teacher education admission',
+      'education college admission consultant',
+      'B.P.Ed admission',
+      'Montessori teacher training',
+    ],
   },
   {
     slug: 'pharmacy',
@@ -375,6 +444,18 @@ export const streams: Stream[] = [
     ],
     gradient: 'from-[#3B82F6] to-[#60A5FA]',
     accent: '#3B82F6',
+    image: '/pharmacy.jpg',
+    seoTitle: 'Pharmacy College Admission Consultant — B.Pharm, M.Pharm',
+    seoDescription:
+      'PCI-approved pharmacy college admission consultant for B.Pharm, M.Pharm with clinical, research and industrial tracks. Guidance for GPAT, NIPER JEE and direct pharmacy admissions.',
+    keywords: [
+      'pharmacy college admission consultant',
+      'B.Pharm admission',
+      'M.Pharm admission',
+      'GPAT counselling',
+      'direct B.Pharm admission',
+      'clinical pharmacy',
+    ],
   },
 ];
 
@@ -424,15 +505,45 @@ export const universities: University[] = [
 ];
 
 export const contact = {
-  phone: '+91 74001 40759',
-  phoneHref: 'tel:+917400140759',
+  phone: '+91 73040 33669',
+  phoneHref: 'tel:+917304033669',
   email: 'info@glideeducation.in',
   emailHref: 'mailto:info@glideeducation.in',
+  whatsapp: '917304033669',
+  whatsappHref:
+    'https://wa.me/917304033669?text=Hi%20Glide%20Education%2C%20I%27d%20like%20to%20enquire%20about%20admissions.',
   address: {
     line1: 'C-202, Second Floor, Eastern Business District (EBD)',
     line2: 'Neptune Magnet Mall, LBS Road',
     line3: 'Bhandup (W), Mumbai – 400078',
   },
+};
+
+/** Site-wide SEO defaults. Per-page metadata still wins where defined. */
+export const seo = {
+  siteName: 'Glide Education',
+  siteUrl: 'https://glideeducation.in',
+  defaultTitle:
+    'Glide Education — Medical, Engineering & MBA College Admission Consultant in Mumbai',
+  defaultDescription:
+    'Glide Education is a trusted admission consultant for medical, engineering, MBA, law, education and pharmacy college admissions across India and overseas. 10,000+ successful admissions to top universities like DY Patil, NMIMS, AMITY, Tilak Maharashtra and more.',
+  defaultKeywords: [
+    'admission consultant',
+    'medical college admission consultant',
+    'engineering college admission consultant',
+    'MBA admission consultant',
+    'direct admission consultant Mumbai',
+    'direct admission consultant Pune',
+    'college admission consultant India',
+    'online education admission',
+    'distance education admission',
+    'UGC approved online degree',
+    'NMC approved medical colleges',
+    'BCI approved law colleges',
+    'AICTE approved colleges',
+    'study abroad consultant',
+    'Glide Education',
+  ],
 };
 
 export const navLinks = [

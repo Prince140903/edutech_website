@@ -15,9 +15,19 @@ import GlowCard from '@/components/ui/GlowCard';
 import { vocationalPrograms } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Vocational Courses — Glide Education',
+  title: 'Vocational Course Admission Consultant — BOSSE Approved Diplomas',
   description:
-    'Industry-ready vocational training facilitated through the Board of Open Schooling & Skill Education (BOSSE). One-year diplomas with annual examinations.',
+    'Glide Education guides admissions to BOSSE-approved 1-year vocational diplomas across Healthcare (Lab Tech, Radiology), Hospitality, Animation & VFX, Beauty & Wellness and Pre-Primary Teacher Training.',
+  keywords: [
+    'vocational course admission consultant',
+    'BOSSE admission',
+    'medical lab technology diploma',
+    'animation VFX diploma',
+    'hospitality course admission',
+    'Montessori teacher training admission',
+    'vocational diploma Mumbai',
+  ],
+  alternates: { canonical: '/vocational' },
 };
 
 const categories = [

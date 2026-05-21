@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Mail, Menu, Phone, X } from 'lucide-react';
+import { ArrowRight, Mail, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
 import BrandLogo from '@/components/ui/BrandLogo';
 import { navLinks, contact } from '@/lib/data';
@@ -77,12 +77,12 @@ export default function Navbar() {
         >
           <Link
             href="/"
+            aria-label="Glide Education — home"
             className="relative z-10 flex items-center gap-2.5"
           >
             <BrandLogo size={36} priority />
-            <span className="heading-display text-lg text-navy">Glide</span>
-            <span className="ml-1 hidden text-xs uppercase tracking-[0.3em] text-muted sm:inline">
-              Education
+            <span className="heading-display text-base sm:text-lg text-navy whitespace-nowrap">
+              Glide Education
             </span>
           </Link>
 
@@ -182,10 +182,16 @@ export default function Navbar() {
               className="fixed right-0 top-0 z-[70] flex h-[100dvh] w-[88%] max-w-sm flex-col border-l border-royal/15 bg-ice/95 shadow-glow-lg backdrop-blur-2xl lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-royal/10 px-5 py-4">
-                <Link href="/" className="flex items-center gap-2.5">
+                <Link
+                  href="/"
+                  aria-label="Glide Education — home"
+                  className="flex items-center gap-2.5"
+                >
                   <BrandLogo size={36} />
                   <div className="leading-tight">
-                    <p className="heading-display text-base text-navy">Glide</p>
+                    <p className="heading-display text-base text-navy whitespace-nowrap">
+                      Glide Education
+                    </p>
                     <p className="text-[9px] uppercase tracking-[0.3em] text-muted">
                       We Shape Your Future
                     </p>
@@ -242,7 +248,16 @@ export default function Navbar() {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted">
                   Talk to us
                 </p>
-                <div className="mt-3 grid grid-cols-2 gap-2">
+                <a
+                  href={contact.whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(16,185,129,0.55)]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp Chat
+                </a>
+                <div className="mt-2 grid grid-cols-2 gap-2">
                   <a
                     href={contact.phoneHref}
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-4 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"

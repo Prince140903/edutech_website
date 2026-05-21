@@ -1,19 +1,30 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  Building2,
-  GraduationCap,
-  MapPin,
-} from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import PageHeader from '@/components/ui/PageHeader';
 import Reveal from '@/components/ui/Reveal';
+import UniversityMonogram from '@/components/ui/UniversityMonogram';
 import { universities, streams } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Partner Universities — Glide Education',
+  title:
+    'Partner Universities — DY Patil, NMIMS, AMITY, Tilak Maharashtra, LNCT',
   description:
-    'Glide Education collaborates with 100+ accredited universities including DY Patil, NMIMS, AMITY, Tilak Maharashtra, BOSSE, LNCT and RKDF.',
+    'Glide Education collaborates with 100+ accredited universities and top colleges in Mumbai and Pune for engineering, medical, MBA, law, B.Ed and pharmacy admissions.',
+  keywords: [
+    'DY Patil admission',
+    'NMIMS admission',
+    'AMITY University admission',
+    'Tilak Maharashtra Vidyapeeth admission',
+    'LNCT University MBBS',
+    'RKDF University admission',
+    'top engineering colleges Mumbai',
+    'top engineering colleges Pune',
+    'IIT Bombay admission counselling',
+    'COEP admission counselling',
+    'Symbiosis admission consultant',
+  ],
+  alternates: { canonical: '/universities' },
 };
 
 export default function UniversitiesPage() {
@@ -103,14 +114,18 @@ export default function UniversitiesPage() {
                       {c.list.length} colleges
                     </span>
                   </div>
-                  <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {c.list.map((college) => (
+                  <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {c.list.map((college, idx) => (
                       <li
                         key={college}
-                        className="flex items-start gap-2 text-sm text-muted"
+                        className="flex items-center gap-3 text-sm text-navy/90"
                       >
-                        <GraduationCap className="mt-0.5 h-3.5 w-3.5 shrink-0 text-royal" />
-                        <span>{college}</span>
+                        <UniversityMonogram
+                          name={college}
+                          accent={idx % 2 === 0 ? '#3B82F6' : '#E7B94C'}
+                          size={36}
+                        />
+                        <span className="line-clamp-2">{college}</span>
                       </li>
                     ))}
                   </ul>
@@ -153,14 +168,7 @@ function UniversityCard({ u }: { u: (typeof universities)[number] }) {
         style={{ background: u.accent }}
       />
       <div className="flex items-start gap-4">
-        <span
-          className="inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-glow"
-          style={{
-            background: `linear-gradient(135deg, ${u.accent}, #0B1F4D)`,
-          }}
-        >
-          <Building2 className="h-5 w-5" />
-        </span>
+        <UniversityMonogram name={u.name} accent={u.accent} size={56} />
         <div className="min-w-0">
           <h3 className="heading-display text-base text-navy">{u.name}</h3>
           <p className="text-xs text-muted">{u.mode}</p>

@@ -8,9 +8,20 @@ import GlowCard from '@/components/ui/GlowCard';
 import { onlinePrograms } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Online Education — Glide Education',
+  title: 'Online Education Admission Consultant — UGC Approved Online Degrees',
   description:
-    'Advance your career through flexible online education. UGC-approved degrees recognised globally and by WES for international higher studies.',
+    'Glide Education is an online education admission consultant for UGC-approved online MBA, MCA, BCA, B.Com, BA and M.Sc Data Science degrees from NAAC A++ universities. WES recognised, globally accepted.',
+  keywords: [
+    'online education admission consultant',
+    'online MBA admission',
+    'online MCA admission',
+    'online BCA admission',
+    'UGC approved online degree',
+    'NAAC A++ online university',
+    'WES recognised online degree',
+    'online MBA-ACCA',
+  ],
+  alternates: { canonical: '/online' },
 };
 
 const benefits = [

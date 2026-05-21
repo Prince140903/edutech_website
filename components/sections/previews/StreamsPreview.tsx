@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BookOpen, ShieldCheck } from 'lucide-react';
 import GlowCard from '@/components/ui/GlowCard';
@@ -41,7 +42,12 @@ export default function StreamsPreview() {
             <Reveal key={c.slug} delay={i * 0.07}>
               <Link href={`/admissions/${c.slug}`} className="block h-full">
                 <GlowCard float={i % 3 === 1} className="h-full p-5">
-                  <CourseImage gradient={c.gradient} accent={c.accent} />
+                  <CourseImage
+                    gradient={c.gradient}
+                    accent={c.accent}
+                    image={c.image}
+                    name={c.name}
+                  />
 
                   <div className="mt-5 px-1">
                     <span className="inline-block rounded-full bg-pearl px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-royal">
@@ -96,53 +102,41 @@ export default function StreamsPreview() {
 function CourseImage({
   gradient,
   accent,
+  image,
+  name,
 }: {
   gradient: string;
   accent: string;
+  image: string;
+  name: string;
 }) {
   return (
     <div
       className={`relative aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br ${gradient}`}
     >
-      <div className="absolute inset-0">
-        <div
-          className="absolute -bottom-10 -right-10 h-44 w-44 rounded-full opacity-40 blur-3xl"
-          style={{ background: accent }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.25),transparent_60%)]" />
-      </div>
+      <Image
+        src={image}
+        alt={`${name} college admission consulting`}
+        fill
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+      />
+      {/* Color-tinted overlay for contrast + brand feel */}
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-70"
+        style={{
+          background: `linear-gradient(135deg, ${accent}40 0%, #0B1F4D80 100%)`,
+        }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
 
-      <motion.div
-        className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
-        whileHover={{ scale: 1.08 }}
-      >
-        <svg
-          viewBox="0 0 200 120"
-          className="absolute inset-0 h-full w-full opacity-60"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id={`grid-${accent}`}
-              width="20"
-              height="20"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 20 0 L 0 0 0 20"
-                fill="none"
-                stroke="rgba(255,255,255,0.15)"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="200" height="120" fill={`url(#grid-${accent})`} />
-        </svg>
-      </motion.div>
-
-      <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white backdrop-blur-md">
+      <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white backdrop-blur-md">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />
         Admissions open
+      </div>
+
+      <div className="absolute bottom-3 left-4 heading-display text-xl text-white drop-shadow">
+        {name}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   BookOpen,
@@ -12,6 +13,7 @@ import {
 import PageHeader from '@/components/ui/PageHeader';
 import GlowCard from '@/components/ui/GlowCard';
 import Reveal from '@/components/ui/Reveal';
+import UniversityMonogram from '@/components/ui/UniversityMonogram';
 import { streams } from '@/lib/data';
 
 export function generateStaticParams() {
@@ -24,10 +26,24 @@ export function generateMetadata({
   params: { stream: string };
 }): Metadata {
   const s = streams.find((x) => x.slug === params.stream);
-  if (!s) return { title: 'Admissions — Glide Education' };
+  if (!s) return { title: 'Admissions' };
   return {
-    title: `${s.name} Admissions — Glide Education`,
-    description: s.longDesc,
+    title: s.seoTitle,
+    description: s.seoDescription,
+    keywords: s.keywords,
+    alternates: { canonical: `/admissions/${s.slug}` },
+    openGraph: {
+      title: s.seoTitle,
+      description: s.seoDescription,
+      url: `/admissions/${s.slug}`,
+      images: [{ url: s.image, alt: `${s.name} admissions` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: s.seoTitle,
+      description: s.seoDescription,
+      images: [s.image],
+    },
   };
 }
 
@@ -72,6 +88,39 @@ export default function StreamPage({
           </Link>
         </div>
       </PageHeader>
+
+      {/* Stream banner */}
+      <section className="relative -mt-4 pb-6 md:-mt-8 md:pb-10">
+        <div className="container-x">
+          <Reveal>
+            <div className="relative aspect-[16/6] w-full overflow-hidden rounded-3xl border border-royal/15 shadow-glow-lg">
+              <Image
+                src={s.image}
+                alt={`${s.name} college admission consulting in India`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 1200px"
+                className="object-cover"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-60"
+                style={{
+                  background: `linear-gradient(135deg, ${s.accent}40 0%, #0B1F4D80 100%)`,
+                }}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-6 md:bottom-7 md:left-9">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-white/80">
+                  {s.tag}
+                </p>
+                <p className="heading-display mt-1 text-2xl md:text-4xl text-white drop-shadow">
+                  {s.name} Admissions
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Specializations */}
       <section className="relative py-16 md:py-24">
@@ -213,14 +262,18 @@ export default function StreamPage({
                       {c.city}
                     </h4>
                   </div>
-                  <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {c.list.map((college) => (
+                  <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {c.list.map((college, idx) => (
                       <li
                         key={college}
-                        className="flex items-start gap-2 text-sm text-muted"
+                        className="flex items-center gap-3 text-sm text-navy/90"
                       >
-                        <GraduationCap className="mt-0.5 h-3.5 w-3.5 shrink-0 text-royal" />
-                        <span>{college}</span>
+                        <UniversityMonogram
+                          name={college}
+                          accent={idx % 2 === 0 ? s.accent : '#0B1F4D'}
+                          size={36}
+                        />
+                        <span className="line-clamp-2">{college}</span>
                       </li>
                     ))}
                   </ul>

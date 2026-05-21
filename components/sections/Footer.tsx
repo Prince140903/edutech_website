@@ -38,7 +38,8 @@ const columns = [
   {
     title: 'Contact',
     links: [
-      '+91 74001 40759',
+      '+91 73040 33669',
+      'WhatsApp Chat',
       'info@glideeducation.in',
       'C-202, Eastern Business District',
       'Neptune Magnet Mall, LBS Road',
@@ -128,6 +129,7 @@ export default function Footer() {
 }
 
 function contactHref(label: string): string {
+  if (label === 'WhatsApp Chat') return 'https://wa.me/917304033669';
   if (label.startsWith('+')) return `tel:${label.replace(/\s/g, '')}`;
   if (label.includes('@')) return `mailto:${label}`;
   return '#';

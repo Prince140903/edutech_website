@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { ArrowRight, Play, Sparkles, Stars } from 'lucide-react';
 import AnimatedBackdrop from '@/components/effects/AnimatedBackdrop';
 import MagneticButton from '@/components/ui/MagneticButton';
@@ -9,7 +8,6 @@ import Reveal from '@/components/ui/Reveal';
 import { contact } from '@/lib/data';
 
 export default function Hero() {
-  const router = useRouter();
   return (
     <section className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32">
       <AnimatedBackdrop />
@@ -28,7 +26,7 @@ export default function Hero() {
 
           <Reveal delay={0.05}>
             <h1 className="heading-display mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-balance text-navy">
-              Shape Your <span className="gold-text">Tomorrow</span>.
+              <span className="gold-text font-bold">Shape Your Tomorrow</span>.
               <br className="hidden md:block" /> Admissions to top{' '}
               <span className="royal-text">universities</span>.
             </h1>
@@ -48,19 +46,23 @@ export default function Hero() {
                 variant="primary"
                 className="!px-7 !py-3.5"
                 onClick={() => {
-                  window.location.href = contact.phoneHref;
+                  document
+                    .getElementById('get-counselling')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
               >
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                Quick Call
+                Get Free Counselling
               </MagneticButton>
               <MagneticButton
                 variant="ghost"
                 className="!px-7 !py-3.5"
-                onClick={() => router.push('/contact')}
+                onClick={() => {
+                  window.location.href = contact.phoneHref;
+                }}
               >
                 <Play className="h-4 w-4 fill-navy" />
-                Video Counselling
+                Quick Call
               </MagneticButton>
             </div>
           </Reveal>

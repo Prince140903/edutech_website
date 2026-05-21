@@ -18,9 +18,17 @@ import { contact } from '@/lib/data';
 import ContactForm from '@/components/sections/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact — Glide Education',
+  title: 'Contact Glide Education — Get Free Admission Counselling',
   description:
-    'Call us at +91 74001 40759 or email info@glideeducation.in. Visit our Bhandup (W), Mumbai office. Book a free 30-minute counselling session.',
+    'Call +91 73040 33669, WhatsApp us or email info@glideeducation.in. Book a free 30-minute admission counselling session. Office: C-202, EBD, Neptune Magnet Mall, Bhandup (W), Mumbai 400078.',
+  keywords: [
+    'Glide Education contact',
+    'admission counselling Mumbai',
+    'free counselling admission consultant',
+    'admission consultant phone',
+    'admission consultant WhatsApp',
+  ],
+  alternates: { canonical: '/contact' },
 };
 
 const channels = [
@@ -32,6 +40,13 @@ const channels = [
     accent: '#3B82F6',
   },
   {
+    icon: MessageCircle,
+    label: 'WhatsApp',
+    value: contact.phone,
+    href: contact.whatsappHref,
+    accent: '#10B981',
+  },
+  {
     icon: Mail,
     label: 'Email',
     value: contact.email,
@@ -41,16 +56,16 @@ const channels = [
   {
     icon: Clock,
     label: 'Hours',
-    value: '24/7 admissions support',
+    value: '24/7 admissions',
     accent: '#3B82F6',
   },
 ];
 
 const socials = [
+  { icon: MessageCircle, label: 'WhatsApp', href: contact.whatsappHref },
   { icon: Facebook, label: 'Facebook', href: '#' },
   { icon: Linkedin, label: 'LinkedIn', href: '#' },
   { icon: Instagram, label: 'Instagram', href: '#' },
-  { icon: MessageCircle, label: 'WhatsApp', href: `https://wa.me/917400140759` },
 ];
 
 export default function ContactPage() {
@@ -72,7 +87,7 @@ export default function ContactPage() {
       {/* Contact channels */}
       <section className="relative pb-6 pt-2">
         <div className="container-x">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4">
             {channels.map((c, i) => (
               <Reveal key={c.label} delay={i * 0.07}>
                 <GlowCard className="h-full p-6" float={i === 1}>

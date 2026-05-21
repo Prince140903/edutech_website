@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowUpRight, Building2 } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
+import UniversityMonogram from '@/components/ui/UniversityMonogram';
 import { universities } from '@/lib/data';
 
 export default function UniversitiesPreview() {
@@ -52,14 +53,7 @@ export default function UniversitiesPreview() {
                   style={{ background: u.accent }}
                 />
                 <div className="flex items-start gap-4">
-                  <span
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-glow"
-                    style={{
-                      background: `linear-gradient(135deg, ${u.accent}, #0B1F4D)`,
-                    }}
-                  >
-                    <Building2 className="h-5 w-5" />
-                  </span>
+                  <UniversityMonogram name={u.name} accent={u.accent} size={52} />
                   <div className="min-w-0">
                     <h3 className="heading-display text-base text-navy">
                       {u.name}

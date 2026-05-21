@@ -6,6 +6,7 @@ import UniversitiesPreview from '@/components/sections/previews/UniversitiesPrev
 import Features from '@/components/sections/Features';
 import Mentors from '@/components/sections/Mentors';
 import Stories from '@/components/sections/Stories';
+import HomeContactCTA from '@/components/sections/HomeContactCTA';
 import CTA from '@/components/sections/CTA';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <StreamsPreview />
       <UniversitiesPreview />
       <Features />
+      <HomeContactCTA />
       <Mentors />
       <Stories />
       <CTA />

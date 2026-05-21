@@ -8,9 +8,19 @@ import GlowCard from '@/components/ui/GlowCard';
 import { distancePrograms } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Distance Education — Glide Education',
+  title: 'Distance Education Admission Consultant — UGC-DEB Approved Degrees',
   description:
-    'Achieve your goals through flexible distance learning. UGC-DEB approved degrees from Tilak Maharashtra Vidyapeeth and other accredited institutions.',
+    'Glide Education is a trusted distance education admission consultant for UGC-DEB approved BA, B.Com, BBA, BCA, MA, M.Com, MBA, MCA and M.Sc programs from Tilak Maharashtra Vidyapeeth (NAAC B++) and partner universities.',
+  keywords: [
+    'distance education admission consultant',
+    'distance MBA admission',
+    'distance MCA admission',
+    'UGC-DEB approved degree',
+    'Tilak Maharashtra Vidyapeeth distance',
+    'WES recognised distance degree',
+    'distance learning consultant Mumbai',
+  ],
+  alternates: { canonical: '/distance' },
 };
 
 const benefits = [
