@@ -25,6 +25,9 @@ body {
   font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
   scroll-behavior: smooth;
+  /* Defensive: any rogue child that overflows on the x-axis is clipped,
+     so the page can never grow wider than the viewport on phones. */
+  overflow-x: clip;
 }
 
 ::selection {
@@ -175,6 +178,15 @@ body {
     text-wrap: balance;
   }
 
+  /* Hide scrollbar but keep scrollability (Chrome, Safari, Firefox, IE) */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   .blur-mask-fade {
     mask-image: linear-gradient(
       to bottom,
@@ -319,6 +331,35 @@ body {
   }
   .particle {
     animation: none !important;
+  }
+}
+
+/*
+ * Card-tilt + float are GPU-layer effects that rasterize the card and its
+ * text. On phones (no hover, high DPR) this shows up as fuzzy text. Enable
+ * the 3D layer ONLY on devices that actually have a hover-capable mouse.
+ */
+.glass-tilt {
+  /* No GPU promotion on mobile — keeps text pixel-aligned and crisp */
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glass-tilt {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg));
+    transition: transform 0.5s ease-out;
+  }
+}
+
+/* Float-glow animation translates Y forever → also rasterizes the card.
+ * Disable it on non-hover devices. */
+@media (hover: none) {
+  .animate-float-glow,
+  .animate-float,
+  .animate-float-slow {
+    animation: none !important;
+    transform: none !important;
   }
 }
 

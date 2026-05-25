@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
-import { CheckCircle2, Clock, MessageCircle, Phone } from 'lucide-react';
+import { CheckCircle2, Clock, Phone } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 import GlowCard from '@/components/ui/GlowCard';
 import ContactForm from '@/components/sections/ContactForm';
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { contact } from '@/lib/data';
 
 const benefits = [
@@ -57,7 +58,7 @@ export default function HomeContactCTA() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(16,185,129,0.55)]"
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <WhatsAppIcon className="h-4 w-4" />
                   WhatsApp
                 </a>
                 <a

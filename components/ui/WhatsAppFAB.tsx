@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { MessageCircle } from 'lucide-react';
 import { contact } from '@/lib/data';
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 
 /**
  * Floating WhatsApp button shown on every page.
@@ -33,7 +33,7 @@ export default function WhatsAppFAB() {
         className="absolute inset-0 -z-10 rounded-full bg-emerald-500 opacity-60 animate-ping"
         style={{ animationDuration: '2.6s' }}
       />
-      <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" />
+      <WhatsAppIcon className="h-7 w-7 sm:h-8 sm:w-8" />
       <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-full bg-navy px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-glow transition-opacity group-hover:opacity-100 sm:inline-block">
         Chat with us · {contact.phone}
       </span>

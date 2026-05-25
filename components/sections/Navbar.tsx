@@ -4,9 +4,10 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Mail, Menu, MessageCircle, Phone, X } from 'lucide-react';
+import { ArrowRight, Mail, Menu, Phone, X } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
 import BrandLogo from '@/components/ui/BrandLogo';
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { navLinks, contact } from '@/lib/data';
 import { cn } from '@/lib/cn';
 
@@ -58,7 +59,8 @@ export default function Navbar() {
       <motion.header
         // inset-x-0 + mx-auto centers using the same available-space math as
         // `mx-auto` on the page content below → no scrollbar-width offset.
-        className="fixed top-4 inset-x-0 z-50 mx-auto w-[min(1200px,calc(100%-2rem))]"
+        // max-w-* cap is a defensive fallback for very narrow viewports.
+        className="fixed top-3 inset-x-0 z-50 mx-auto w-[min(1200px,calc(100%-1.5rem))] sm:top-4 sm:w-[min(1200px,calc(100%-2rem))]"
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -71,17 +73,17 @@ export default function Navbar() {
             ),
           }}
           className={cn(
-            'relative flex items-center justify-between rounded-2xl border border-royal/15 px-4 py-2.5 sm:px-5 sm:py-3 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500',
+            'relative flex w-full min-w-0 items-center justify-between gap-2 rounded-2xl border border-royal/15 px-3 py-2 sm:px-5 sm:py-3 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500',
             scrolled ? 'shadow-glow' : 'shadow-none',
           )}
         >
           <Link
             href="/"
             aria-label="Glide Education — home"
-            className="relative z-10 flex items-center gap-2.5"
+            className="relative z-10 flex min-w-0 items-center gap-2 sm:gap-2.5"
           >
-            <BrandLogo size={36} priority />
-            <span className="heading-display text-base sm:text-lg text-navy whitespace-nowrap">
+            <BrandLogo size={34} priority />
+            <span className="heading-display text-[15px] sm:text-lg text-navy whitespace-nowrap">
               Glide Education
             </span>
           </Link>
@@ -144,7 +146,7 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-drawer"
             onClick={() => setOpen((v) => !v)}
-            className="relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-royal/20 bg-white/70 transition-colors hover:bg-white lg:hidden"
+            className="relative z-10 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-royal/20 bg-white/70 transition-colors hover:bg-white sm:h-10 sm:w-10 lg:hidden"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -254,7 +256,7 @@ export default function Navbar() {
                   rel="noreferrer"
                   className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(16,185,129,0.55)]"
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <WhatsAppIcon className="h-4 w-4" />
                   WhatsApp Chat
                 </a>
                 <div className="mt-2 grid grid-cols-2 gap-2">

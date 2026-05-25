@@ -507,15 +507,15 @@ export const universities: University[] = [
 export const contact = {
   phone: '+91 73040 33669',
   phoneHref: 'tel:+917304033669',
-  email: 'info@glideeducation.in',
-  emailHref: 'mailto:info@glideeducation.in',
+  email: 'admin@glideducation.com',
+  emailHref: 'mailto:admin@glideducation.com',
   whatsapp: '917304033669',
   whatsappHref:
     'https://wa.me/917304033669?text=Hi%20Glide%20Education%2C%20I%27d%20like%20to%20enquire%20about%20admissions.',
   address: {
-    line1: 'C-202, Second Floor, Eastern Business District (EBD)',
-    line2: 'Neptune Magnet Mall, LBS Road',
-    line3: 'Bhandup (W), Mumbai – 400078',
+    line1: 'Mathura Bhawan, Flat No.406, ',
+    line2: 'C-Wing, Dada Saheb Phalke Marg, Near Kala Kendra, ',
+    line3: 'Dadar East, Mumbai-400014',
   },
 };
 

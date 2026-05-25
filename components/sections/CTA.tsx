@@ -10,7 +10,7 @@ export default function CTA() {
     <section className="relative py-20 md:py-28">
       <div className="container-x">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-royal/20 bg-navy p-10 md:p-16 text-white shadow-glow-lg">
+          <div className="relative overflow-hidden rounded-3xl border border-royal/20 bg-navy p-6 sm:rounded-[2.5rem] sm:p-10 md:p-16 text-white shadow-glow-lg">
             {/* Decorative animated layers */}
             <div className="pointer-events-none absolute inset-0">
               <motion.div

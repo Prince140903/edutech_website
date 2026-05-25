@@ -7,20 +7,20 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  MessageCircle,
   Phone,
 } from 'lucide-react';
 import { Suspense } from 'react';
 import PageHeader from '@/components/ui/PageHeader';
 import GlowCard from '@/components/ui/GlowCard';
 import Reveal from '@/components/ui/Reveal';
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { contact } from '@/lib/data';
 import ContactForm from '@/components/sections/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Glide Education — Get Free Admission Counselling',
   description:
-    'Call +91 73040 33669, WhatsApp us or email info@glideeducation.in. Book a free 30-minute admission counselling session. Office: C-202, EBD, Neptune Magnet Mall, Bhandup (W), Mumbai 400078.',
+    'Call +91 73040 33669, WhatsApp us or email admin@glideducation.com. Book a free 30-minute admission counselling session. Office: Mathura Bhawan, Flat No.406, C-Wing, Dada Saheb Phalke Marg, Near Kala Kendra, Dadar East, Mumbai-400014.',
   keywords: [
     'Glide Education contact',
     'admission counselling Mumbai',
@@ -40,7 +40,7 @@ const channels = [
     accent: '#3B82F6',
   },
   {
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     label: 'WhatsApp',
     value: contact.phone,
     href: contact.whatsappHref,
@@ -62,7 +62,7 @@ const channels = [
 ];
 
 const socials = [
-  { icon: MessageCircle, label: 'WhatsApp', href: contact.whatsappHref },
+  { icon: WhatsAppIcon, label: 'WhatsApp', href: contact.whatsappHref },
   { icon: Facebook, label: 'Facebook', href: '#' },
   { icon: Linkedin, label: 'LinkedIn', href: '#' },
   { icon: Instagram, label: 'Instagram', href: '#' },

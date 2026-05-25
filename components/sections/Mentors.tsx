@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Linkedin, Star } from 'lucide-react';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
+import { contact } from '@/lib/data';
 
 const mentors = [
   {
@@ -54,12 +54,47 @@ const mentors = [
 ];
 
 export default function Mentors() {
-  const [index, setIndex] = useState(0);
-  const visible = 3;
-  const max = mentors.length - visible;
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
 
-  const prev = () => setIndex((i) => Math.max(0, i - 1));
-  const next = () => setIndex((i) => Math.min(max, i + 1));
+  const updateState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cardWidth = (el.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0;
+    const gap = 16;
+    const stride = cardWidth + gap;
+    setActive(stride ? Math.round(el.scrollLeft / stride) : 0);
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateState();
+    el.addEventListener('scroll', updateState, { passive: true });
+    window.addEventListener('resize', updateState);
+    return () => {
+      el.removeEventListener('scroll', updateState);
+      window.removeEventListener('resize', updateState);
+    };
+  }, [updateState]);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cardWidth = (el.firstElementChild as HTMLElement | null)?.offsetWidth ?? el.clientWidth;
+    el.scrollBy({ left: (cardWidth + 16) * direction, behavior: 'smooth' });
+  };
+
+  const goTo = (i: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cardWidth = (el.firstElementChild as HTMLElement | null)?.offsetWidth ?? el.clientWidth;
+    el.scrollTo({ left: (cardWidth + 16) * i, behavior: 'smooth' });
+  };
 
   return (
     <section id="mentors" className="relative overflow-hidden py-20 md:py-28">
@@ -72,13 +107,13 @@ export default function Mentors() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <Reveal className="max-w-2xl">
             <span className="text-xs uppercase tracking-[0.4em] text-royal">
-              Vocational & Counselling Cells
+              Counselling Cells
             </span>
-            <h2 className="heading-display mt-3 text-4xl md:text-5xl text-balance text-navy">
+            <h2 className="heading-display mt-3 text-3xl sm:text-4xl md:text-5xl text-balance text-navy">
               Dedicated experts for{' '}
               <span className="gold-text">every stream</span>.
             </h2>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 text-sm sm:text-base text-muted">
               Stream-specific counselling desks that handle eligibility,
               shortlisting, applications and documentation — so you focus only
               on your future.
@@ -88,18 +123,18 @@ export default function Mentors() {
           <Reveal delay={0.1}>
             <div className="flex gap-2">
               <button
-                onClick={prev}
-                disabled={index === 0}
+                onClick={() => scrollByCard(-1)}
+                disabled={!canPrev}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-royal/20 bg-white/70 text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow disabled:opacity-40"
-                aria-label="Previous cell"
+                aria-label="Previous counselling cell"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
-                onClick={next}
-                disabled={index >= max}
+                onClick={() => scrollByCard(1)}
+                disabled={!canNext}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-royal/20 bg-white/70 text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow disabled:opacity-40"
-                aria-label="Next cell"
+                aria-label="Next counselling cell"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -107,34 +142,34 @@ export default function Mentors() {
           </Reveal>
         </div>
 
-        <div className="mt-12 overflow-hidden">
-          <motion.div
-            animate={{ x: `${-(index * (100 / visible))}%` }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="flex gap-6"
-            style={{ width: `${(mentors.length * 100) / visible}%` }}
-          >
-            {mentors.map((m) => (
-              <div
-                key={m.name}
-                className="basis-full md:basis-1/3 lg:basis-1/3"
-                style={{ flex: '0 0 calc(100% / 3 - 1rem)' }}
-              >
-                <MentorCard mentor={m} />
-              </div>
-            ))}
-          </motion.div>
+        {/* Scroll-snap carousel. Bleeds out to the section edges so the peek
+            card on mobile feels natural and tap targets stay full width.
+            One card visible on mobile, two on sm, three on lg. */}
+        <div
+          ref={scrollerRef}
+          className="scrollbar-hide -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-4 md:-mx-10 md:gap-6 md:px-10"
+          aria-label="Counselling cells carousel"
+        >
+          {mentors.map((m) => (
+            <div
+              key={m.name}
+              className="snap-start shrink-0 basis-[88%] sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]"
+            >
+              <MentorCard mentor={m} />
+            </div>
+          ))}
         </div>
 
-        <div className="mt-6 flex justify-center gap-2 md:hidden">
-          {Array.from({ length: max + 1 }).map((_, i) => (
+        {/* Dots — only show on mobile where they're useful */}
+        <div className="mt-6 flex justify-center gap-1.5 sm:hidden">
+          {mentors.map((_, i) => (
             <button
               key={i}
-              onClick={() => setIndex(i)}
+              onClick={() => goTo(i)}
+              aria-label={`Go to card ${i + 1}`}
               className={`h-1.5 rounded-full transition-all ${
-                i === index ? 'w-6 bg-navy' : 'w-1.5 bg-muted/40'
+                i === active ? 'w-6 bg-navy' : 'w-1.5 bg-muted/40'
               }`}
-              aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
@@ -143,42 +178,40 @@ export default function Mentors() {
   );
 }
 
-function MentorCard({
-  mentor,
-}: {
-  mentor: (typeof mentors)[number];
-}) {
+function MentorCard({ mentor }: { mentor: (typeof mentors)[number] }) {
   return (
-    <div className="group relative h-full overflow-hidden rounded-3xl border border-royal/15 bg-white/70 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-royal/15 bg-white/80 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg">
       <div
-        className="absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-30 blur-3xl transition-opacity group-hover:opacity-60"
+        className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-30 blur-3xl transition-opacity group-hover:opacity-60"
         style={{ background: mentor.accent }}
       />
 
       <div className="flex items-start gap-4">
         <div
-          className="relative inline-flex h-16 w-16 items-center justify-center rounded-2xl text-lg font-semibold text-white shadow-glow"
+          className="relative inline-flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl text-base sm:text-lg font-semibold text-white shadow-glow"
           style={{
             background: `linear-gradient(135deg, ${mentor.accent}, #0B1F4D)`,
           }}
         >
           {mentor.initials}
-          <span className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-white bg-emerald-400" />
+          <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
         </div>
-        <div>
-          <h3 className="heading-display text-lg text-navy">{mentor.name}</h3>
-          <p className="text-xs text-muted">{mentor.role}</p>
-          <div className="mt-1 inline-flex items-center gap-1 text-xs text-navy">
+        <div className="min-w-0 flex-1">
+          <h3 className="heading-display text-base sm:text-lg text-navy leading-tight">
+            {mentor.name}
+          </h3>
+          <p className="mt-0.5 text-xs text-muted">{mentor.role}</p>
+          <div className="mt-1.5 inline-flex items-center gap-1 text-xs text-navy">
             <Star className="h-3.5 w-3.5 fill-gold text-gold" />
             <span className="font-semibold">{mentor.rating}</span>
-            <span className="text-muted">(verified intake)</span>
+            <span className="text-muted">· verified</span>
           </div>
         </div>
       </div>
 
-      <p className="mt-5 text-sm leading-relaxed text-muted">{mentor.bio}</p>
+      <p className="mt-4 text-sm leading-relaxed text-muted">{mentor.bio}</p>
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-1.5">
         {mentor.tags.map((t) => (
           <span
             key={t}
@@ -189,22 +222,24 @@ function MentorCard({
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between border-t border-royal/10 pt-4">
-        <a
-          href="https://www.linkedin.com/"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-navy hover:text-royal"
-        >
-          <Linkedin className="h-3.5 w-3.5" />
-          LinkedIn
-        </a>
-        <a
-          href="tel:+917400140759"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-royal hover:text-navy"
-        >
-          Talk to a counsellor →
-        </a>
+      <div className="mt-auto pt-5">
+        <div className="flex items-center justify-between gap-3 border-t border-royal/10 pt-4">
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-navy hover:text-royal"
+          >
+            <Linkedin className="h-3.5 w-3.5" />
+            LinkedIn
+          </a>
+          <a
+            href={contact.phoneHref}
+            className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-semibold text-royal hover:text-navy"
+          >
+            Talk to counsellor →
+          </a>
+        </div>
       </div>
     </div>
   );

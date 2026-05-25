@@ -34,6 +34,8 @@ export default function GlowCard({
     const ry = (50 - p.x) / 50;
     el.style.setProperty('--rx', `${rx * tiltStrength}deg`);
     el.style.setProperty('--ry', `${ry * tiltStrength}deg`);
+    // Only promote to a GPU layer while we're actively tilting.
+    el.style.willChange = 'transform';
   };
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,6 +61,8 @@ export default function GlowCard({
     pending.current = null;
     el.style.setProperty('--rx', `0deg`);
     el.style.setProperty('--ry', `0deg`);
+    // Release the GPU layer so text falls back to crisp sub-pixel rendering.
+    el.style.willChange = 'auto';
   };
 
   return (
@@ -67,15 +71,14 @@ export default function GlowCard({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        'group relative overflow-hidden rounded-3xl glass glow-border transition-transform duration-500 ease-out',
+        // glass-tilt: applies the perspective+rotate transform only on
+        // hover-capable devices (see globals.css). On phones it stays as
+        // `transform: none` so cards aren't promoted to GPU layers and text
+        // renders with full sub-pixel sharpness.
+        'group glass-tilt relative overflow-hidden rounded-3xl glass glow-border',
         float && 'animate-float-glow',
         className,
       )}
-      style={{
-        transform:
-          'perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))',
-        willChange: 'transform',
-      }}
       {...rest}
     >
       <div

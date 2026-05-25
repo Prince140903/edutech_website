@@ -1,8 +1,17 @@
 'use client';
 
-import { Facebook, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 import BrandLogo from '@/components/ui/BrandLogo';
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
+import { contact } from '@/lib/data';
+
+const socials = [
+  { icon: WhatsAppIcon, label: 'WhatsApp', href: contact.whatsappHref },
+  { icon: Facebook, label: 'Facebook', href: '#' },
+  { icon: Linkedin, label: 'LinkedIn', href: '#' },
+  { icon: Instagram, label: 'Instagram', href: '#' },
+];
 
 const columns = [
   {
@@ -40,10 +49,8 @@ const columns = [
     links: [
       '+91 73040 33669',
       'WhatsApp Chat',
-      'info@glideeducation.in',
-      'C-202, Eastern Business District',
-      'Neptune Magnet Mall, LBS Road',
-      'Bhandup (W), Mumbai – 400078',
+      'admin@glideducation.com',
+      'Mathura Bhawan, Flat No.406, C-Wing, Dada Saheb Phalke Marg, Near Kala Kendra, Dadar East, Mumbai-400014',
     ],
   },
 ];
@@ -77,14 +84,16 @@ export default function Footer() {
             </p>
 
             <div className="mt-6 flex gap-2">
-              {[Facebook, Linkedin, Instagram, MessageCircle].map((Icon, i) => (
+              {socials.map((s) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={s.label}
+                  href={s.href}
+                  target={s.href.startsWith('http') ? '_blank' : undefined}
+                  rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-royal/15 bg-white/60 text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow"
-                  aria-label="Social link"
+                  aria-label={s.label}
                 >
-                  <Icon className="h-4 w-4" />
+                  <s.icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
