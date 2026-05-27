@@ -7,6 +7,7 @@ import PageTransition from '@/components/effects/PageTransition';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
 import WhatsAppFAB from '@/components/ui/WhatsAppFAB';
+import { LeadCaptureProvider } from '@/components/providers/LeadCaptureProvider';
 import { contact, seo } from '@/lib/data';
 
 const body = Inter({
@@ -168,15 +169,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${body.variable} ${display.variable}`}>
       <body className="relative min-h-screen overflow-x-hidden bg-ice text-ink antialiased">
-        <LoadingScreen />
-        <CursorGlow />
-        <div className="pointer-events-none fixed inset-0 -z-10 noise-texture" />
-        <Navbar />
-        <PageTransition>
-          <main className="relative">{children}</main>
-        </PageTransition>
-        <Footer />
-        <WhatsAppFAB />
+        <LeadCaptureProvider>
+          <LoadingScreen />
+          <CursorGlow />
+          <div className="pointer-events-none fixed inset-0 -z-10 noise-texture" />
+          <Navbar />
+          <PageTransition>
+            <main className="relative">{children}</main>
+          </PageTransition>
+          <Footer />
+          <WhatsAppFAB />
+        </LeadCaptureProvider>
 
         {/* Structured data for Google rich results */}
         <script

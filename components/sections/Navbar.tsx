@@ -4,10 +4,11 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Mail, Menu, Phone, X } from 'lucide-react';
+import { ArrowRight, Mail, Menu, X } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
 import BrandLogo from '@/components/ui/BrandLogo';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
+import { useLeadPopup } from '@/components/providers/LeadCaptureProvider';
 import { navLinks, contact } from '@/lib/data';
 import { cn } from '@/lib/cn';
 
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { openPopup } = useLeadPopup();
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 120], [0.35, 0.78]);
 
@@ -130,14 +132,10 @@ export default function Navbar() {
               variant="primary"
               className="!px-5 !py-2.5 text-sm"
               strength={0.15}
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  window.location.href = contact.phoneHref;
-                }
-              }}
+              onClick={() => openPopup()}
             >
-              <Phone className="h-4 w-4" />
-              Quick Call
+              <ArrowRight className="h-4 w-4" />
+              Get in Touch
             </MagneticButton>
           </div>
 
@@ -250,31 +248,33 @@ export default function Navbar() {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted">
                   Talk to us
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openPopup();
+                  }}
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-4 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                  Get in Touch
+                </button>
                 <a
                   href={contact.whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(16,185,129,0.55)]"
+                  className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(16,185,129,0.55)]"
                 >
                   <WhatsAppIcon className="h-4 w-4" />
-                  WhatsApp Chat
+                  WhatsApp
                 </a>
-                <div className="mt-2 grid grid-cols-2 gap-2">
-                  <a
-                    href={contact.phoneHref}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-4 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
-                  >
-                    <Phone className="h-4 w-4" />
-                    Call
-                  </a>
-                  <a
-                    href={contact.emailHref}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-royal/20 bg-white px-4 py-3 text-sm font-medium text-navy transition-colors hover:bg-pearl"
-                  >
-                    <Mail className="h-4 w-4" />
-                    Email
-                  </a>
-                </div>
+                <a
+                  href={contact.emailHref}
+                  className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-royal/20 bg-white px-4 py-3 text-sm font-medium text-navy transition-colors hover:bg-pearl"
+                >
+                  <Mail className="h-4 w-4" />
+                  Email
+                </a>
                 <p className="mt-3 text-[11px] text-muted">
                   {contact.phone} · {contact.email}
                 </p>

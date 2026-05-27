@@ -1,7 +1,7 @@
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import StreamsPreview from '@/components/sections/previews/StreamsPreview';
-import ProgramsPreview from '@/components/sections/previews/ProgramsPreview';
+import AbroadSection from '@/components/sections/AbroadSection';
 import UniversitiesPreview from '@/components/sections/previews/UniversitiesPreview';
 import Features from '@/components/sections/Features';
 import Mentors from '@/components/sections/Mentors';
@@ -14,8 +14,8 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
-      <ProgramsPreview />
       <StreamsPreview />
+      <AbroadSection />
       <UniversitiesPreview />
       <Features />
       <HomeContactCTA />

@@ -4,8 +4,11 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MagneticButton from '@/components/ui/MagneticButton';
 import Reveal from '@/components/ui/Reveal';
+import { useLeadPopup } from '@/components/providers/LeadCaptureProvider';
+import { contact } from '@/lib/data';
 
 export default function CTA() {
+  const { openPopup } = useLeadPopup();
   return (
     <section className="relative py-20 md:py-28">
       <div className="container-x">
@@ -70,23 +73,21 @@ export default function CTA() {
                 <MagneticButton
                   variant="gold"
                   className="!px-7 !py-3.5"
-                  onClick={() => {
-                    window.location.href = '/contact';
-                  }}
+                  onClick={() => openPopup()}
                 >
-                  Get Free Counselling
+                  Get in Touch
                   <ArrowRight className="h-4 w-4" />
                 </MagneticButton>
                 <a
-                  href="tel:+917400140759"
+                  href={contact.phoneHref}
                   className="text-sm font-medium text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
                 >
-                  Quick Call · +91 74001 40759 →
+                  {contact.phone} →
                 </a>
               </div>
 
               <p className="mt-6 text-xs text-white/50">
-                Free 30-minute counselling call · No commitment required
+                Free admission guidance · No commitment required
               </p>
             </div>
           </div>

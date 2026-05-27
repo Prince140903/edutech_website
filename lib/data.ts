@@ -214,66 +214,6 @@ export const streams: Stream[] = [
     ],
   },
   {
-    slug: 'management',
-    name: 'Management',
-    tag: 'Management',
-    blurb: 'BBA, MBA & MBA-ACCA with Marketing, Finance and HR specializations.',
-    longDesc:
-      'AICTE-approved business programs that prepare future leaders. Choose between regular, online and distance MBA paths with specializations across marketing, finance, HR and global accounting.',
-    programs: ['BBA', 'MBA (2 yrs)', 'MBA-ACCA', 'PGDBM'],
-    specializations: [
-      {
-        title: 'Marketing Management',
-        duration: '2 years',
-        desc: 'Specializations in Digital Marketing, Brand Management, and Market Research.',
-      },
-      {
-        title: 'Finance Management',
-        duration: '2 years',
-        desc: 'Focus on Investment Banking, Financial Analysis, and Risk Management.',
-      },
-      {
-        title: 'HR Management',
-        duration: '2 years',
-        desc: 'Study Talent Management, Organizational Development, and Employee Relations.',
-      },
-    ],
-    eligibility: [
-      'Graduation in any discipline with minimum 50% marks',
-      'CAT, MAT, XAT, or University-specific entrance tests',
-      'Written Test, Group Discussion, and Personal Interview',
-    ],
-    exam: 'CAT · MAT · XAT · University tests',
-    accred: 'AICTE',
-    collegesMumbai: [
-      'NMIMS School of Business Management',
-      'JBIMS',
-      'SPJIMR',
-      'K.J. Somaiya Institute of Management',
-    ],
-    collegesPune: [
-      'Symbiosis Institute of Business Management (SIBM)',
-      'IIM Pune',
-      'MIT School of Business',
-      'D.Y. Patil Institute of Management',
-    ],
-    gradient: 'from-[#1e3a8a] to-[#3B82F6]',
-    accent: '#3B82F6',
-    image: '/management.jpg',
-    seoTitle: 'MBA & Management College Admission Consultant — BBA, MBA, MBA-ACCA',
-    seoDescription:
-      'Leading management college admission consultant for BBA, MBA, MBA-ACCA and PGDBM at AICTE-approved schools. Specialised in CAT, MAT, XAT counselling and direct management admissions.',
-    keywords: [
-      'MBA admission consultant',
-      'BBA admission consultant',
-      'management college admission consultant',
-      'direct MBA admission',
-      'MBA-ACCA admission',
-      'CAT counselling',
-      'PGDBM admission',
-    ],
-  },
-  {
     slug: 'law',
     name: 'Law',
     tag: 'Law',
@@ -524,20 +464,16 @@ export const seo = {
   siteName: 'Glide Education',
   siteUrl: 'https://glideeducation.in',
   defaultTitle:
-    'Glide Education — Medical, Engineering & MBA College Admission Consultant in Mumbai',
+    'Glide Education — Medical, Engineering & Top College Admission Consultant in Mumbai',
   defaultDescription:
-    'Glide Education is a trusted admission consultant for medical, engineering, MBA, law, education and pharmacy college admissions across India and overseas. 10,000+ successful admissions to top universities like DY Patil, NMIMS, AMITY, Tilak Maharashtra and more.',
+    'Glide Education is a trusted admission consultant for medical, engineering, law, education and pharmacy college admissions across India and overseas. 10,000+ successful admissions to top universities like DY Patil, NMIMS, AMITY, Tilak Maharashtra and more.',
   defaultKeywords: [
     'admission consultant',
     'medical college admission consultant',
     'engineering college admission consultant',
-    'MBA admission consultant',
     'direct admission consultant Mumbai',
     'direct admission consultant Pune',
     'college admission consultant India',
-    'online education admission',
-    'distance education admission',
-    'UGC approved online degree',
     'NMC approved medical colleges',
     'BCI approved law colleges',
     'AICTE approved colleges',
@@ -547,10 +483,7 @@ export const seo = {
 };
 
 export const navLinks = [
-  { label: 'Online', href: '/online' },
   { label: 'Distance', href: '/distance' },
-  { label: 'Vocational', href: '/vocational' },
-  { label: 'Admissions', href: '/admissions' },
   { label: 'Universities', href: '/universities' },
   { label: 'Contact', href: '/contact' },
 ];

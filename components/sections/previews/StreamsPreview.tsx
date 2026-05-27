@@ -1,46 +1,55 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BookOpen, ShieldCheck } from 'lucide-react';
 import GlowCard from '@/components/ui/GlowCard';
 import Reveal from '@/components/ui/Reveal';
+import { useLeadPopup } from '@/components/providers/LeadCaptureProvider';
 import { streams } from '@/lib/data';
 
 export default function StreamsPreview() {
+  const { openPopup } = useLeadPopup();
+
   return (
     <section className="relative py-20 md:py-28">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <Reveal className="max-w-2xl">
             <span className="text-xs uppercase tracking-[0.4em] text-royal">
-              Regular Admission
+              Admissions
             </span>
-            <h2 className="heading-display mt-3 text-4xl md:text-5xl text-balance text-navy">
+            <h2 className="heading-display mt-3 text-3xl sm:text-4xl md:text-5xl text-balance text-navy">
               Admissions across{' '}
               <span className="gold-text">every stream</span> that matters.
             </h2>
             <p className="mt-4 text-muted">
-              From Engineering to Medical, Management to Law — we help you
-              secure admissions to top universities in India and overseas.
+              From Medical to Engineering, Law to Pharmacy — we help you secure
+              admissions to top universities in India and overseas. Tap a
+              stream to talk to our team.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <Link
-              href="/admissions"
+            <button
+              type="button"
+              onClick={() => openPopup()}
               className="group inline-flex items-center gap-2 rounded-full border border-royal/20 bg-white/60 px-5 py-2.5 text-sm font-medium text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow"
             >
-              View all streams
+              Get in Touch
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
-            </Link>
+            </button>
           </Reveal>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {streams.map((c, i) => (
             <Reveal key={c.slug} delay={i * 0.07}>
-              <Link href={`/admissions/${c.slug}`} className="block h-full">
+              <button
+                type="button"
+                onClick={() => openPopup(c.name)}
+                aria-label={`Get in touch about ${c.name} admissions`}
+                className="block h-full w-full text-left"
+              >
                 <GlowCard float={i % 3 === 1} className="h-full p-5">
                   <CourseImage
                     gradient={c.gradient}
@@ -90,7 +99,7 @@ export default function StreamsPreview() {
                     </div>
                   </div>
                 </GlowCard>
-              </Link>
+              </button>
             </Reveal>
           ))}
         </div>

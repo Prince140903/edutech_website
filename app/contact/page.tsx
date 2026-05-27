@@ -18,13 +18,12 @@ import { contact } from '@/lib/data';
 import ContactForm from '@/components/sections/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact Glide Education — Get Free Admission Counselling',
+  title: 'Contact Glide Education — Get in Touch with Admission Consultants',
   description:
-    'Call +91 73040 33669, WhatsApp us or email admin@glideducation.com. Book a free 30-minute admission counselling session. Office: Mathura Bhawan, Flat No.406, C-Wing, Dada Saheb Phalke Marg, Near Kala Kendra, Dadar East, Mumbai-400014.',
+    'Get in touch with Glide Education admission consultants. Call +91 73040 33669, WhatsApp us or email admin@glideducation.com. Office: Mathura Bhawan, Flat No.406, C-Wing, Dada Saheb Phalke Marg, Near Kala Kendra, Dadar East, Mumbai-400014.',
   keywords: [
     'Glide Education contact',
-    'admission counselling Mumbai',
-    'free counselling admission consultant',
+    'admission consultant Mumbai',
     'admission consultant phone',
     'admission consultant WhatsApp',
   ],
@@ -79,8 +78,8 @@ export default function ContactPage() {
             together.
           </>
         }
-        description="Book a free 30-minute counselling session, or reach us directly by phone, email or WhatsApp. We respond within an hour during working days."
-        badges={['24/7 support', 'Free counselling', '30-min video call']}
+        description="Get in touch with our admissions team — reach us by phone, email or WhatsApp. We respond within an hour on working days."
+        badges={['24/7 support', 'Free assistance', 'Response in 1 hour']}
         crumbs={[{ label: 'Contact' }]}
       />
 
@@ -128,11 +127,10 @@ export default function ContactPage() {
             <Reveal className="lg:col-span-3">
               <GlowCard className="p-6 sm:p-8 md:p-10">
                 <h2 className="heading-display text-center text-2xl sm:text-3xl text-navy">
-                  Get Free Counselling
+                  Get in <span className="gold-text font-bold">Touch</span>
                 </h2>
                 <p className="mt-2 text-center text-sm text-muted">
-                  Share a few details and our admissions team will reach out
-                  within an hour.
+                  Need personalised assistance? Your solution starts here.
                 </p>
 
                 <div className="mt-7">

@@ -62,7 +62,7 @@ export default function OnlinePage() {
           href="/contact?course=Online%20Education"
           className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
         >
-          Talk to a counsellor
+          Get in Touch
           <ArrowRight className="h-4 w-4" />
         </Link>
       </PageHeader>
@@ -136,7 +136,7 @@ export default function OnlinePage() {
                 href="/contact?course=Online%20Education"
                 className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-glow-lg"
               >
-                Book free counselling
+                Get in Touch
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

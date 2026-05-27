@@ -3,13 +3,13 @@
 import { ChevronLeft, ChevronRight, Linkedin, Star } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
-import { contact } from '@/lib/data';
+import { useLeadPopup } from '@/components/providers/LeadCaptureProvider';
 
 const mentors = [
   {
     name: 'Engineering Admissions Cell',
     role: 'B.Tech · M.Tech · Diploma',
-    bio: 'End-to-end guidance across engineering streams — from college shortlisting and JEE/CET counselling to document verification and seat allotment.',
+    bio: 'End-to-end guidance across engineering streams — from college shortlisting and JEE/CET preparation to document verification and seat allotment.',
     initials: 'EN',
     rating: 4.9,
     tags: ['B.Tech', 'M.Tech', 'Diploma'],
@@ -18,20 +18,11 @@ const mentors = [
   {
     name: 'Medical Admissions Desk',
     role: 'MBBS · MD · Allied Health',
-    bio: 'Specialised counselling for medical aspirants targeting reputed Indian and overseas institutions with NMC-approved programs.',
+    bio: 'Specialised guidance for medical aspirants targeting reputed Indian and overseas institutions with NMC-approved programs.',
     initials: 'MD',
     rating: 5.0,
     tags: ['MBBS', 'MD', 'NMC'],
     accent: '#E7B94C',
-  },
-  {
-    name: 'Management Programs Team',
-    role: 'BBA · MBA · MBA-ACCA',
-    bio: 'Mentors for future business leaders. Helping students choose between regular, online and distance MBA paths suited to their goals.',
-    initials: 'MG',
-    rating: 4.9,
-    tags: ['BBA', 'MBA', 'ACCA'],
-    accent: '#3B82F6',
   },
   {
     name: 'Law & Legal Studies',
@@ -107,14 +98,14 @@ export default function Mentors() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <Reveal className="max-w-2xl">
             <span className="text-xs uppercase tracking-[0.4em] text-royal">
-              Counselling Cells
+              Admission cells
             </span>
             <h2 className="heading-display mt-3 text-3xl sm:text-4xl md:text-5xl text-balance text-navy">
               Dedicated experts for{' '}
               <span className="gold-text">every stream</span>.
             </h2>
             <p className="mt-4 text-sm sm:text-base text-muted">
-              Stream-specific counselling desks that handle eligibility,
+              Stream-specific admission desks that handle eligibility,
               shortlisting, applications and documentation — so you focus only
               on your future.
             </p>
@@ -126,7 +117,7 @@ export default function Mentors() {
                 onClick={() => scrollByCard(-1)}
                 disabled={!canPrev}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-royal/20 bg-white/70 text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow disabled:opacity-40"
-                aria-label="Previous counselling cell"
+                aria-label="Previous admission cell"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -134,7 +125,7 @@ export default function Mentors() {
                 onClick={() => scrollByCard(1)}
                 disabled={!canNext}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-royal/20 bg-white/70 text-navy backdrop-blur-xl transition-all hover:border-royal/40 hover:shadow-glow disabled:opacity-40"
-                aria-label="Next counselling cell"
+                aria-label="Next admission cell"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -148,7 +139,7 @@ export default function Mentors() {
         <div
           ref={scrollerRef}
           className="scrollbar-hide -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-4 md:-mx-10 md:gap-6 md:px-10"
-          aria-label="Counselling cells carousel"
+          aria-label="Admission cells carousel"
         >
           {mentors.map((m) => (
             <div
@@ -179,6 +170,7 @@ export default function Mentors() {
 }
 
 function MentorCard({ mentor }: { mentor: (typeof mentors)[number] }) {
+  const { openPopup } = useLeadPopup();
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-royal/15 bg-white/80 p-5 sm:p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-glow-lg">
       <div
@@ -233,12 +225,13 @@ function MentorCard({ mentor }: { mentor: (typeof mentors)[number] }) {
             <Linkedin className="h-3.5 w-3.5" />
             LinkedIn
           </a>
-          <a
-            href={contact.phoneHref}
+          <button
+            type="button"
+            onClick={() => openPopup(mentor.name.replace(/ Admissions?.*$/i, ''))}
             className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-semibold text-royal hover:text-navy"
           >
-            Talk to counsellor →
-          </a>
+            Get in Touch →
+          </button>
         </div>
       </div>
     </div>

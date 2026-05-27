@@ -7,17 +7,16 @@ import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { contact } from '@/lib/data';
 
 const benefits = [
-  'Free 30-minute counselling session',
   'End-to-end admission support — eligibility to enrolment',
   '100+ partner universities & accredited colleges',
-  'Direct admissions guidance for Engineering, Medical, MBA, Law, B.Ed & Pharmacy',
-  'Online, distance and regular programs — your choice',
+  'Direct admissions guidance for Medical, Engineering, Law, B.Ed & Pharmacy',
+  'Trusted by 10,000+ students across India',
   '24/7 admissions support · response within 1 working hour',
 ];
 
 export default function HomeContactCTA() {
   return (
-    <section id="get-counselling" className="relative py-20 md:py-28">
+    <section id="get-in-touch" className="relative py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-royal/15 blur-3xl" />
       </div>
@@ -30,13 +29,11 @@ export default function HomeContactCTA() {
                 Talk to an admissions expert
               </span>
               <h2 className="heading-display mt-3 text-3xl sm:text-4xl md:text-5xl text-balance text-navy">
-                Get free counselling for{' '}
-                <span className="gold-text font-bold">your dream college</span>.
+                Get in <span className="gold-text font-bold">Touch</span>.
               </h2>
               <p className="mt-4 text-balance text-sm sm:text-base text-muted">
-                Share a few details below and our admissions team will reach
-                out within an hour with a personalised plan — no payment, no
-                commitment.
+                Need personalised assistance with admissions? Share a few
+                details — our team gets back within an hour. No commitment.
               </p>
 
               <ul className="mt-7 space-y-3">
@@ -79,7 +76,7 @@ export default function HomeContactCTA() {
           <Reveal delay={0.1} className="lg:col-span-3">
             <GlowCard className="h-full p-6 sm:p-8 md:p-10">
               <h3 className="heading-display text-center text-2xl sm:text-3xl text-navy">
-                Get Free Counselling
+                Get in <span className="gold-text font-bold">Touch</span>
               </h3>
               <p className="mt-2 text-center text-sm text-muted">
                 Fill the form — we'll call you back within 1 working hour.

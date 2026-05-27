@@ -112,6 +112,25 @@ body {
     animation: shimmer 4s linear infinite;
   }
 
+  /* Brighter, glowing treatment — for hero-scale display copy. */
+  .gold-text-vibrant {
+    background: linear-gradient(
+      135deg,
+      #c98a13 0%,
+      #f4b938 22%,
+      #fee08a 50%,
+      #f4b938 78%,
+      #c98a13 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 220% auto;
+    animation: shimmer 3.4s linear infinite;
+    filter: drop-shadow(0 0 16px rgba(244, 185, 56, 0.45))
+      drop-shadow(0 6px 18px rgba(231, 185, 76, 0.3));
+  }
+
   .royal-text {
     background: linear-gradient(135deg, #0b1f4d 0%, #3b82f6 50%, #0b1f4d 100%);
     -webkit-background-clip: text;

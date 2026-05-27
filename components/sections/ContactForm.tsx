@@ -5,20 +5,32 @@ import { CheckCircle2, Send } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function ContactForm() {
+type Props = {
+  /** Pre-fills the Course field (used by the popup and by stream cards). */
+  defaultCourse?: string;
+  /** Fires after a successful submit — e.g. to mark the user as converted. */
+  onSubmitted?: () => void;
+};
+
+export default function ContactForm({
+  defaultCourse = '',
+  onSubmitted,
+}: Props = {}) {
   const params = useSearchParams();
   const courseFromUrl = params?.get('course') ?? '';
-  const [course, setCourse] = useState(courseFromUrl);
+  const [course, setCourse] = useState(defaultCourse || courseFromUrl);
   const [sent, setSent] = useState(false);
 
-  // Keep the field in sync if the user clicks another card while staying on /contact
+  // Keep the field in sync if the surrounding context changes the course.
   useEffect(() => {
-    if (courseFromUrl) setCourse(courseFromUrl);
-  }, [courseFromUrl]);
+    if (defaultCourse) setCourse(defaultCourse);
+    else if (courseFromUrl) setCourse(courseFromUrl);
+  }, [defaultCourse, courseFromUrl]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSent(true);
+    onSubmitted?.();
   };
 
   if (sent) {

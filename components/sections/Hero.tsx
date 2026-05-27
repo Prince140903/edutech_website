@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Sparkles, Stars } from 'lucide-react';
+import { ArrowRight, Sparkles, Stars } from 'lucide-react';
 import AnimatedBackdrop from '@/components/effects/AnimatedBackdrop';
 import MagneticButton from '@/components/ui/MagneticButton';
 import Reveal from '@/components/ui/Reveal';
-import { contact } from '@/lib/data';
+import { useLeadPopup } from '@/components/providers/LeadCaptureProvider';
 
 export default function Hero() {
+  const { openPopup } = useLeadPopup();
   return (
     <section className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32">
       <AnimatedBackdrop />
@@ -17,26 +18,34 @@ export default function Hero() {
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-royal/25 bg-white/60 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wide text-navy backdrop-blur-xl">
               <Sparkles className="h-3.5 w-3.5 text-gold" />
-              Admissions open —{' '}
-              <span className="gold-text font-semibold">
-                Free 30-min counselling
-              </span>
+              MBBS Abroad ·{' '}
+              <span className="gold-text font-semibold">Study Abroad</span> ·
+              Direct Admissions
             </span>
           </Reveal>
 
           <Reveal delay={0.05}>
             <h1 className="heading-display mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-balance text-navy">
-              <span className="gold-text font-bold">Shape Your Tomorrow</span>.
+              <span className="gold-text-vibrant font-bold">
+                Shape Your Tomorrow
+              </span>
+              .
               <br className="hidden md:block" /> Admissions to top{' '}
               <span className="royal-text">universities</span>.
             </h1>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.1}>
+            <p className="mt-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-royal">
+              Study Abroad · MBBS Abroad · India admissions
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.16}>
             <p className="mt-5 sm:mt-6 max-w-xl text-balance text-sm sm:text-base md:text-lg text-muted">
-              Receive expert support for admissions to top universities in
-              India and overseas. Online education, distance learning,
-              vocational courses, and regular admissions — guided end-to-end.
+              Trusted admission consultants for medical, engineering, law,
+              education and pharmacy colleges across India and overseas. Fill
+              the short form — our team gets back within a working hour.
             </p>
           </Reveal>
 
@@ -45,24 +54,21 @@ export default function Hero() {
               <MagneticButton
                 variant="primary"
                 className="!px-7 !py-3.5"
-                onClick={() => {
-                  document
-                    .getElementById('get-counselling')
-                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
+                onClick={() => openPopup()}
               >
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                Get Free Counselling
+                Get in Touch
               </MagneticButton>
               <MagneticButton
                 variant="ghost"
                 className="!px-7 !py-3.5"
                 onClick={() => {
-                  window.location.href = contact.phoneHref;
+                  document
+                    .getElementById('get-in-touch')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
               >
-                <Play className="h-4 w-4 fill-navy" />
-                Quick Call
+                See more
               </MagneticButton>
             </div>
           </Reveal>
@@ -123,10 +129,10 @@ function FloatingHeroCard() {
           <div className="mt-6 grid grid-cols-12 gap-4">
             <div className="col-span-12 md:col-span-4 space-y-3">
               <SidebarItem active label="Overview" />
-              <SidebarItem label="Online Education" />
-              <SidebarItem label="Distance Education" />
-              <SidebarItem label="Vocational Courses" />
-              <SidebarItem label="Regular Admission" />
+              <SidebarItem label="My Application" />
+              <SidebarItem label="Documents" />
+              <SidebarItem label="Partner Universities" />
+              <SidebarItem label="Messages" />
             </div>
 
             <div className="col-span-12 md:col-span-8 space-y-4">
@@ -137,7 +143,7 @@ function FloatingHeroCard() {
                       Admission status
                     </p>
                     <h3 className="heading-display mt-1 text-xl text-navy">
-                      MBA · DY Patil University
+                      B.Tech · DY Patil University
                     </h3>
                   </div>
                   <span className="rounded-full bg-gold-gradient px-3 py-1 text-xs font-semibold text-navy">
@@ -158,8 +164,8 @@ function FloatingHeroCard() {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <MiniStat label="Counselling sessions" value="3" />
-                <MiniStat label="Scholarship eligible" value="₹15K" gold />
+                <MiniStat label="Documents verified" value="6 / 8" />
+                <MiniStat label="Response time" value="< 1 hr" gold />
               </div>
             </div>
           </div>

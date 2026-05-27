@@ -15,25 +15,17 @@ const socials = [
 
 const columns = [
   {
-    title: 'Programs',
+    title: 'Quick links',
     links: [
-      'Online Education',
-      'Distance Education',
-      'Vocational Courses',
-      'Regular Admission',
+      'Get in Touch',
       'Partner Universities',
+      'About',
+      'Why Glide',
     ],
   },
   {
     title: 'Streams',
-    links: [
-      'Engineering',
-      'Medical',
-      'Management',
-      'Law',
-      'Education',
-      'Pharmacy',
-    ],
+    links: ['Engineering', 'Medical', 'Law', 'Education', 'Pharmacy'],
   },
   {
     title: 'Policies',
